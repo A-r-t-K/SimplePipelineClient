@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { getAnimeLogoPath } from './helper/animeNameHelper';
+import React, { useEffect, useState } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import { getAnimeLogoPath } from './helper/animeNameHelper'
 
 export const App: React.FC = () => {
-  const NotFoundAnime = 'Anime not found ;(';
+  const NotFoundAnime = 'Anime not found ;('
 
-  const [animeLogoPath, setAnimeLogoPath] = useState(logo);
-  const [animeName, setAnimeName] = useState('');
+  const [animeLogoPath, setAnimeLogoPath] = useState(logo)
+  const [animeName, setAnimeName] = useState('')
 
   useEffect(() => {
     fetch('http://localhost:5178/anime/')
-      .then(response => response.json())
+      .then(async response => await response.json())
       .then(data => {
-        setAnimeName(data.animeName || NotFoundAnime);
-        setAnimeLogoPath(getAnimeLogoPath(data.animeName) || logo);
+        setAnimeName(data.animeName || NotFoundAnime)
+        setAnimeLogoPath(getAnimeLogoPath(data.animeName) || logo)
       })
       .catch(() => {
-        setAnimeName(NotFoundAnime);
-        setAnimeLogoPath(logo);
-      });
-  }, []);
+        setAnimeName(NotFoundAnime)
+        setAnimeLogoPath(logo)
+      })
+  }, [])
 
   return (
     <div className="App">
@@ -31,7 +31,7 @@ export const App: React.FC = () => {
         <h2>{animeName}</h2>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
